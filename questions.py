@@ -24,15 +24,24 @@ answers = [
 ]
 # Índice de la respuesta correcta para cada pregunta, en el mismo orden que las preguntas
 correct_answers_index = [1, 2, 0, 3, 1]
+
 # Se crea la variable puntaje
-Puntaje = 0
+puntaje = 0
+
 # Uso de zip para acomodar las tres listas en una misma variable
 # Creando una lista de listas
 # Todas posicionadas y colocadas en el mismo orden y lugar
 # forzando a que del zip salga como variable lista para evitar error
-# Para que el 'random.choices' pueda procesarlo y sacar al azar de cada lista en orden
+# Para que el 'random.sample' pueda procesarlo y sacar al azar de cada lista en orden
 # hasta k=3 preguntas con sus correspondientes opciones y respuestas correctas
-questions_to_ask = random.choices(list(zip(questions,answers, correct_answers_index)), k=3)
+
+questions_to_ask = random.sample(list(zip(questions,answers, correct_answers_index)), k=3)
+
+# Cabe aclarar que el uso de un .sample evita repeticiones al elegir al azar
+# Donde un .choice es capaz de repetir resultados sacados del mismo sitio
+# Por estas limitaciones, el .sample no podria aplicarse en una lista menor a un numero de secuencia establecida
+# En cambio el .choice es capaz de trabajar con una secuencia mayor a la cantidad de objetos en lista
+
 
 # El usuario deberá contestar 3 preguntas
 for _ in range(3):
@@ -60,11 +69,11 @@ for _ in range(3):
             if 0 <= user_answer <= 3:
                 if user_answer == correcta_aux:
                     print("¡Correcto!")
-                    Puntaje += 1
+                    puntaje += 1
                     break
                 else:
-                    if Puntaje != 0:
-                        Puntaje = Puntaje - 0.5
+                    if puntaje != 0:
+                        puntaje = puntaje - 0.5
             else:
                 print("Respuesta no válida")
                 sys.exit(1)        
@@ -77,4 +86,4 @@ for _ in range(3):
         print(respuestas_aux[correcta_aux])
     # Se imprime un blanco al final de la pregunta
     print()
-print(f"Tu puntaje final son {Puntaje} de 3 puntos")
+print(f"Tu puntaje final son {puntaje} de 3 puntos")
