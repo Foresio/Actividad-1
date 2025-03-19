@@ -21,7 +21,7 @@ answers = [
     ),
     ("=", "==", "!=", "==="),
 ]
-# Índice de la respuesta correcta para cada pregunta, el el mismo orden que las preguntas
+# Índice de la respuesta correcta para cada pregunta, en el mismo orden que las preguntas
 correct_answers_index = [1, 2, 0, 3, 1]
 
 # El usuario deberá contestar 3 preguntas
@@ -36,23 +36,23 @@ for _ in range(3):
 
     # El usuario tiene 2 intentos para responder correctamente
     for intento in range(2):
-    # El comando "While" se mantiene en Loop hasta que se ingrese una respuesta válida
-    # Si se ingresa un String en lugar de integer, el "except" atrapa el error
-    # Si el numero ingresado no esta dentro del rango de valores, tambien será contado como inválido
-        while True:
-            try:
-                user_answer = int(input("Respuesta: ")) - 1
+        # El "While" se mantiene en Loop hasta que se ingrese una respuesta válida  
+        while True: 
+            user_input = input("Respuesta: ")
+
+            # Verifica que sea número antes de convertir
+            if user_input.isdigit():
+                user_answer = int(user_input) - 1
                 if 0 <= user_answer <= 3:
                     break
-                print("Respuesta no válida")
-            except:
-                print("Respuesta no válida")
+            # Muestra esto sólo si se ingresó un texto o número fuera de rango 
+            print("Respuesta no válida")
+
         if user_answer == correct_answers_index[question_index]:
-                print("¡Correcto!")
-                break
+            print("¡Correcto!")
+            break
     else:
         # Si el usuario no responde correctamente después de 2 intentos,
-        # se muestra la respuesta correcta
         print("Incorrecto. La respuesta correcta es:")
         print(answers[question_index][correct_answers_index[question_index]])
 
