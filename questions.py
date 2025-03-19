@@ -1,4 +1,5 @@
 import random
+import sys
 
 # Preguntas para el juego
 questions = [
@@ -35,22 +36,22 @@ for _ in range(3):
         print(f"{i + 1}. {answer}")
 
     # El usuario tiene 2 intentos para responder correctamente
-    for intento in range(2):
-        # El "While" se mantiene en Loop hasta que se ingrese una respuesta válida  
-        while True: 
-            user_input = input("Respuesta: ")
+    for intento in range(2): 
+        user_input = input("Respuesta: ")
 
-            # Verifica que sea número antes de convertir
-            if user_input.isdigit():
-                user_answer = int(user_input) - 1
-                if 0 <= user_answer <= 3:
+        # Verifica que sea número antes de convertir
+        if user_input.isdigit():
+            user_answer = int(user_input) - 1
+            if 0 <= user_answer <= 3:
+                if user_answer == correct_answers_index[question_index]:
+                    print("¡Correcto!")
                     break
-            # Muestra esto sólo si se ingresó un texto o número fuera de rango 
+            else:
+                print("Respuesta no válida")
+                sys.exit(1)        
+        else:
             print("Respuesta no válida")
-
-        if user_answer == correct_answers_index[question_index]:
-            print("¡Correcto!")
-            break
+            sys.exit(1)
     else:
         # Si el usuario no responde correctamente después de 2 intentos,
         print("Incorrecto. La respuesta correcta es:")
